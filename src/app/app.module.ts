@@ -14,11 +14,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
-import { DialogClienteComponent } from './dialog/dialogcliente.component'
-import { FormsModule } from '@angular/forms';
+import { DialogClienteComponent } from './dialog/dialogcliente.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogDeleteComponent } from './common/delete/dialogdelete.component';
 import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './security/jwt.interceptor';
+import { VentaComponent } from './venta/venta.component';
+import { DialogVentaComponent } from './venta/dialog/dialogventa.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { JwtInterceptor } from './security/jwt.interceptor';
     ClienteComponent,
     DialogClienteComponent,
     DialogDeleteComponent,
+    DialogVentaComponent,
     LoginComponent,
+    VentaComponent,
     
   ],
   imports: [
@@ -43,6 +47,7 @@ import { JwtInterceptor } from './security/jwt.interceptor';
     MatCardModule,
     HttpClientModule ,
     FormsModule,
+    ReactiveFormsModule,
     
   ],
   providers: [

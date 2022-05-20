@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { Response } from "../models/response";
 import { Usuario } from "../models/usuario";
 import { map } from "rxjs/operators";
+import { Login } from "../models/login";
+
 
 const HttpOption ={
     headers: new HttpHeaders({
@@ -20,6 +22,7 @@ export class ApiauthService {
 
     //rxjs logistica de cuando iniciamos sesion 
     private usuarioSubject: BehaviorSubject<Usuario>;   
+    public usuario!: Observable<Usuario>;
 
     public get usuarioData():Usuario {
         return this.usuarioSubject.value;
@@ -27,11 +30,12 @@ export class ApiauthService {
 
     constructor(private _http: HttpClient){
         this.usuarioSubject = new BehaviorSubject<Usuario>(JSON.parse(localStorage.getItem('usuario')||"[]"));//si usuario no está en el localStorage, entonces vas a usar "[]" como entrada al JSON.parse.
+        this.usuario = this.usuarioSubject.asObservable();
     }
     
     //Solicitud al servicio Web que hicimos en el backend
-    login(email: string, password: string): Observable<Response> {
-        return this._http.post<Response>(this.url, {email, password}, HttpOption).pipe(
+    login(login: Login ): Observable<Response> {
+        return this._http.post<Response>(this.url, login, HttpOption).pipe(
             map(res =>{
                 if(res.exito === 1 ){
                     const usuario : Usuario = res.data;
